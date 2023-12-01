@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package fileService;
+
+option go_package = "vorontsov.fs.v1;fsv1";
+
+service FileService {
+  rpc Upload(FileUploadRequest) returns (FileUploadResponse);
+  rpc Browse(empty) returns (FileBrowseResponse);
+  rpc Export(FileExportRequest) returns (FileExportResponse);
+}
+
+message FileUploadRequest {
+    bytes file_data = 1;
+}
+
+message FileUploadResponse {
+  // Результат загрузки
+  bool success = 1;
+  // Описание результата (например, сообщение об ошибке)
+  string message = 2;
+}
+
+message empty {}
+
+message FileBrowseResponse {
+  repeated FileSummary files = 1;
+}
+
+message FileSummary {
+  int64 file_id = 1;
+  string name = 2;
+  google.protobuf.Timestamp date_created = 3;
+  google.protobuf.Timestamp date_modify = 4;
+}
+
+
+message FileExportRequest {
+  int64 file_id = 1;
+}
+
+message FileExportResponse {
+  bytes file_data = 1;
+}
+
+
+
+
