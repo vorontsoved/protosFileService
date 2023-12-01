@@ -1,4 +1,4 @@
-module protoFileservices
+module protoFileservice
 
 go 1.21.4
 
